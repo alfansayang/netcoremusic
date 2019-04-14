@@ -1,0 +1,124 @@
+﻿@model Music.Web.Models.ArtistModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<div>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAdd">Add</button>
+</div>
+<div>
+    <table id="tblmusic" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Num.</th>
+                <th>Album Name</th>
+                <th>Artist Name</th>
+                <th>Date Release</th>
+                <th>Sample Audio</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="modalplaymusic" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:dimgrey;">      
+                <table style="color: white;">
+                    <tbody>
+                        <tr>
+                            <td>Artist Name  :</td>
+                            <td id="lblArtistName"></td>
+                        </tr>
+                        <tr>
+                            <td>Album Name  :</td>
+                            <td id="lblAlbumName"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="background-color: black;">
+                <div id="divimgalbum">                    
+                </div>                
+                <br />
+                <div>   
+                    <audio id="musicplayer" src="" autoplay />
+                </div>
+                
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formmusic" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input hidden asp-for="ArtistID" />
+                    <div class="form-group">
+                        <label asp-for="ArtistName" class="control-label"></label>
+                        <input asp-for="ArtistName" class="form-control" />
+                        <span asp-validation-for="ArtistName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AlbumName" class="control-label"></label>
+                        <input asp-for="AlbumName" class="form-control" />
+                        <span asp-validation-for="AlbumName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ImageURL" class="control-label"></label>
+                        <input asp-for="ImageURL" class="form-control" />
+                        <span asp-validation-for="ImageURL" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ReleaseDate" class="control-label"></label>
+                        <input asp-for="ReleaseDate" class="form-control" />
+                        <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Price" class="control-label"></label>
+                        <input asp-for="Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SampleURL" class="control-label"></label>
+                        <input asp-for="SampleURL" class="form-control" />
+                        <span asp-validation-for="SampleURL" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        @*<input type="submit" value="Create" class="btn btn-primary" onclick="return insertData();"/>*@
+                        <input type="submit" id="btnCreate" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>    
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="@Url.Content("~/js/musicscript.js")"></script>
+    
+}
+
